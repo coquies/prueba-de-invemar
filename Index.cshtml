@@ -1,0 +1,318 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Controller = "ng-controller=Controller";
+}
+
+<style>
+    .chip2 {
+        padding: 6px 1rem;
+        background-color: #eee;
+        display: inline-block;
+        margin: 0 1% 1rem 1%;
+        border-radius: 8px;
+    }
+</style>
+
+
+
+@*listado de registros*@
+<div class="panel">
+    <div class="panel-body">  
+        <div class="row  mb-3">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalLugar">
+              Crear lugar
+            </button>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading text-center"><h2><strong>LISTADO DE LUGARES</strong> </h2></div>
+                    <div class="row">
+                        <div class="col-sm-offset-5 col-sm-4">
+                            <div class="form-group input-group">
+                                <input id="input" class="form-control input-search" type="search" placeholder="Búsqueda" ng-model="search" aria-describedby="iconsearch">
+                                <span class="input-group-addon" id="iconsearch"><i class="glyphicon glyphicon-search"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <span class="chip">{{( Lugares | filter: search).length}} Resultados</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" ng-if="Lugares.length == 0">
+                            <div class="alert alert-info" role="alert"><b>No hay lugares registradas en el sistema</b></div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12">
+                        <div ng-show="Lugares.length > 0">
+                            <table class="table  table-responsive Table">
+                                <thead>
+                                    <tr>
+                                        <th>País</th>
+                                        <th>Departamento</th>
+                                        <th>Nombre</th>                            
+                                        <th>Alias</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="p in Lugares | filter:search | itemsPerPage: 5">
+                                        <td>{{p.pais}}</td>
+                                        <td>{{p.departamentos}}</td>
+                                        <td>{{p.nombre}}</td>
+                                        <td>{{p.alias}}</td>
+                              
+                                        @*ng-click="editarConvocatorias(p)"*@
+                                        <td>
+                                            <button title="Actualizar" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-md-12" ng-if="Lugares.length > 0 && (Lugares|filter:search).length == 0" style="padding-bottom: 1rem;">
+                                     <div class="alert alert-info" role="alert"><b>No hay elementos para la búsqueda realizada</b></div>
+                            </div>                          
+                        </div>
+                        </div>                  
+                    </div>
+                </div> 
+            </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading text-center"><h2><strong>LISTADO DE ESPECIES</strong> </h2></div>
+                    <div class="row">
+                        <div class="col-sm-offset-5 col-sm-4">
+                            <div class="form-group input-group">
+                                <input id="input" class="form-control input-search" type="search" placeholder="Búsqueda" ng-model="search" aria-describedby="iconsearch">
+                                <span class="input-group-addon" id="iconsearch"><i class="glyphicon glyphicon-search"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <span class="chip">{{( Especies | filter: search).length}} Resultados</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" ng-if="Especies.length == 0">
+                            <div class="alert alert-info" role="alert"><b>No hay especies registradas en el sistema</b></div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12">
+                        <div ng-show="Especies.length > 0">
+                            <table class="table  table-responsive Table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre comun</th>
+                                        <th>Nombre cientifico</th>
+                                        <th>Familia</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="E in Especies | filter:search | itemsPerPage: 5">
+                                        <td>{{E.nombreComun}}</td>
+                                        <td>{{E.nombreCientifico}}</td>
+                                        <td>{{E.familia}}</td>
+                                     
+                                        @*ng-click="editarConvocatorias(p)"*@
+                                        <td>                                           
+                                            <button  title="Actualizar" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-md-12" ng-if="Especies.length > 0 && (Especies|filter:search).length == 0" style="padding-bottom: 1rem;">
+                                <div class="alert alert-info" role="alert"><b>No hay elementos para la búsqueda realizada</b></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading text-center"><h2><strong>LISTADO DE AVISTAMIENTOS</strong> </h2></div>
+                    <div class="row">
+                        <div class="col-sm-offset-5 col-sm-4">
+                            <div class="form-group input-group">
+                                <input id="input" class="form-control input-search" type="search" placeholder="Búsqueda" ng-model="search" aria-describedby="iconsearch">
+                                <span class="input-group-addon" id="iconsearch"><i class="glyphicon glyphicon-search"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <span class="chip">{{( Avistamientos | filter: search).length}} Resultados</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" ng-if="Avistamientos.length == 0">
+                            <div class="alert alert-info" role="alert"><b>No hay avistamientos registradas en el sistema</b></div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12">
+                        <div ng-show="Avistamientos.length > 0">
+                            <table class="table  table-responsive Table">
+                                <thead>
+                                    <tr>
+                                        <th>Especie</th>
+                                        <th>lugar</th>
+                                        <th>Latitud</th>
+                                        <th>Longitud</th>
+                                        <th>Autor</th>
+                                        <th>Observación</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate=" A in Avistamientos | filter:search | itemsPerPage: 5">
+                                        <td>{{getEspecies(A.especie)}}</td>
+                                        <td>{{getLugar(A.lugar)}}</td>
+                                        <td>{{A.latitud}}</td>
+                                        <td>{{A.longitud}}</td>
+                                        <td>{{A.autor}}</td>
+                                        <td>{{A.observacion}}</td>                                          
+
+                                        @*ng-click="editarConvocatorias(p)"*@
+                                        <td>
+                                            <button title="Actualizar" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-md-12" ng-if="Avistamientos.length > 0 && (Avistamientos|filter:search).length == 0" style="padding-bottom: 1rem;">
+                                <div class="alert alert-info" role="alert"><b>No hay elementos para la búsqueda realizada</b></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalLugar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="left:0%" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Agregar lugares</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form role="form" name="PersonarForm" novalidate>
+                <div class="form-group">
+                    <div class="modal-body">
+                        {{lugar|json}}
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group" >
+                                    <label class="" for="nombre">Pais:</label>
+                                    <input type="text" class="form-control" name="nombre" id="idnombre" ng-model="lugar.pais"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="" for="nombre">Departamento:</label>
+                                    <input type="text" class="form-control" name="nombre" id="idnombre" ng-model="lugar.departamento" />
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="" for="nombre">Nombre:</label>
+                                    <input type="text" class="form-control" name="nombre" id="idnombre" ng-model="lugar.nombre" />
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="" for="nombre">Alias:</label>
+                                    <input type="text" class="form-control" name="nombre" id="idnombre" ng-model="lugar.alias" />
+                                </div>
+                            </div>
+                        </div>     
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success left" ng-click="guardarLugar()">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@*modal editar*@
+@*<div class="modal fade" id="modalEditarPersona" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="left:0%" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Editar Personas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form role="form" name="PersonaEditarForm" novalidate>
+                <div class="form-group">
+                    <div class="modal-body">
+                        <div class="row">
+                          
+                            <div class="col-xs-12">
+                                <div class="form-group" ng-class="{'error': (PersonaEditarForm.$submitted || PersonaEditarForm.nombres1.$touched) && PersonaEditarForm.nombres1.$error.required}">
+                                    <label class="" for="nombre">Nombre:</label>
+                                    <input type="text" class="form-control" name="nombres1" id="idnombres" placeholder="Nombre" maxlength="455" ng-model="personaEditar.nombre" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group" ng-class="{'error': (PersonaEditarForm.$submitted || PersonaEditarForm.apellidos.$touched) && PersonaEditarForm.apellidos.$error.required}">
+                                    <label class="" for="apellido">Apellido:</label>
+                                    <input type="text" class="form-control" name="apellidos1" id="apellidos" placeholder="Apellido" maxlength="455" ng-model="personaEditar.apellido" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group" ng-class="{'error': (PersonaEditarForm.$submitted || PersonaEditarForm.cedulas.$touched) && PersonaEditarForm.cedulas.$error.required}">
+                                    <label class="" for="cedula">Cedula:</label>
+                                    <input type="text" class="form-control" name="cedulas1" id="cedulas" placeholder="Cedula" maxlength="455" ng-model="personaEditar.cedula" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label ng-repeat="l in listaLenguajes" style="display:block;">
+                                    <input type="checkbox" checklist-model="personaEditar.lenguajes" checklist-value="l"> {{l.nombre}}
+                                </label>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success left" ng-click="editarGuardar() ">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>*@
+
+
+@*<div class="row">
+    <div class="col-xs-12">
+        <div class="form-group" ng-class="{'error': (crearTemaForm.$submitted || crearTemaForm.periodoT.$touched) && crearTemaForm.periodoT.$error.required}">
+            <label class="control-label" for="periodoT"><span class="asterisk">*</span>Periodo</label>
+            <select class="form-control" name="periodoT" id="periodoT" ng-model="crearTema.periodoid" ng-options="item.id as item.periodo for item in listaPeriodos" required>
+                <option selected disabled value="">Seleccione un periodo</option>
+            </select>
+        </div>
+    </div>
+</div>*@

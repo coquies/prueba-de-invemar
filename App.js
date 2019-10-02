@@ -1,0 +1,1 @@
+﻿var app = angular.module('prueba', ['checklist-model', 'Controllers', 'Services']);
